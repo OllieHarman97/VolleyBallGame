@@ -29,8 +29,9 @@ public class PlayerScript : MonoBehaviour
     private float jumpStartTime;
     
 
-    private Vector2 movement;
+    private Vector2 position;
     private Vector2 playerVelocity;
+    private float zAngle;
 
     private bool charging;
     public bool Charging
@@ -73,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     {
         kb = InputSystem.GetDevice<Keyboard>();
 
-        movement.x = 0;
+        position.x = 0;
 
         //TODO: Make this key
         if(isPlayerOne){
@@ -97,29 +98,45 @@ public class PlayerScript : MonoBehaviour
         rb2d.velocity = playerVelocity;
     }
 
-    //Controls for movement and jumping
+    //Controls for position and jumping
     public void move(bool moveLeft, bool moveRight, bool jump, bool jumpStart, bool jumpStop){
 
-        movement.x = 0;
+        position.x = 0;
+        zAngle = 0;
 
-        if(moveLeft) movement.x -= VolleyballConstants.playerSpeed;
-        if(moveRight) movement.x += VolleyballConstants.playerSpeed;
-        if(charging) movement.x *= VolleyballConstants.playerChargeSpeedMultiplier;
+        if(moveLeft){
+            position.x -= VolleyballConstants.playerSpeed;
+            zAngle += (VolleyballConstants.playerSpeed/Mathf.PI*2);
+            tf.transform.Rotate(0.0f,0.0f,zAngle, Space.Self);
+            Debug.Log(zAngle);
+        }
+
+        if(moveRight){
+            position.x += VolleyballConstants.playerSpeed;
+            zAngle -= (VolleyballConstants.playerSpeed/Mathf.PI*2);
+            tf.transform.Rotate(0.0f,0.0f,zAngle, Space.Self);
+        }
+
+
+        if(charging){
+            position.x *= VolleyballConstants.playerChargeSpeedMultiplier;
+        }
 
         if(jumpStart && onGround){
             canJump = true;
             jumpStartTime = Time.time;
-        } 
+        }
+
         if(jumpStop) canJump = false;
 
         if(jump && canJump && Time.time - jumpStartTime <= VolleyballConstants.playerMaxJumpTime){
             rb2d.velocity = new Vector2(rb2d.velocity.x,VolleyballConstants.playerJumpSpeed);
         }
 
-        playerVelocity.x = movement.x;
+        playerVelocity.x = position.x;
         playerVelocity.y = rb2d.velocity.y;
 
-        //tf.Translate(movement*Time.deltaTime);
+        //tf.Translate(position*Time.deltaTime);
     }
 
     //Charging up and hitting the ball
@@ -188,13 +205,12 @@ public class PlayerScript : MonoBehaviour
 
         if(isPlayerOne){
             tf.position = new Vector3(-8.0f,-8.0f,0.0f);
-            defaultColor = Color.red;
+            defaultColor = Color.white;
         } 
         else{
             tf.position = new Vector3(8.0f,-8.0f,0.0f);
-            defaultColor = Color.blue;
+            defaultColor = Color.white;
         }
-        sr.color = defaultColor;
 
         balls = GameObject.FindGameObjectsWithTag("Ball");
     }
@@ -216,8 +232,8 @@ public class PlayerScript : MonoBehaviour
     // }
 
     // void movePlayer(InputValue v){
-    //     movement = v.Get<Vector2>();
-    //     playerVelocity.x = movement.x * VolleyballConstants.playerSpeed * VolleyballConstants.playerVelocityMultiplier;
+    //     position = v.Get<Vector2>();
+    //     playerVelocity.x = position.x * VolleyballConstants.playerSpeed * VolleyballConstants.playerVelocityMultiplier;
     // }
 
 }

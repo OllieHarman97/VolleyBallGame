@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -11,8 +12,12 @@ public class GameManagerScript : MonoBehaviour
     private GameObject playerOne;
     private GameObject playerTwo;
     private GameObject ball;
-
-    public GameObject playerPrefab;
+    
+    public MainMenu MM;
+    public Text P1Score;
+    public Text P2Score;
+    public GameObject player1Prefab;
+    public GameObject player2Prefab;
     public GameObject ballPrefab;
     public int playerOneScore;
     public int playerTwoScore;
@@ -31,12 +36,16 @@ public class GameManagerScript : MonoBehaviour
     }
     void Start()
     {
-        playerOne = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        playerOne = Instantiate(player1Prefab, Vector3.zero, Quaternion.identity);
         playerOne.GetComponent<PlayerScript>().isPlayerOne = true;
 
-        playerTwo = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        playerTwo = Instantiate(player2Prefab, Vector3.zero, Quaternion.identity);
         playerTwo.GetComponent<PlayerScript>().isPlayerOne = false;
+
+        //
         //playerTwo.AddComponent(typeof(SillyAI));
+
+
 
         ball = Instantiate(ballPrefab, Vector3.zero, Quaternion.identity);
 
@@ -89,7 +98,27 @@ public class GameManagerScript : MonoBehaviour
             playerOneScore += 1;
         }
 
+        //Bounces score handling
+        //If blue hits the ball and has too many bounces
+        else if(!ball.GetComponent<BallScript>().lastHitPlayer && ball.GetComponent<BallScript>().bounces > 2)
+        {
+            playerOneScore += 1;
+        }
+        //If red hits the ball and has too many bounces
+        else if(ball.GetComponent<BallScript>().lastHitPlayer && ball.GetComponent<BallScript>().bounces > 2)
+        {
+            playerTwoScore += 1;
+        }
+
         Debug.Log("playerOneScore " + playerOneScore.ToString());
         Debug.Log("playerTwoScore " + playerTwoScore.ToString());
+
+        updateScoreboard();
+    }
+
+    void updateScoreboard()
+    {
+        P1Score.text = playerOneScore.ToString();
+        P2Score.text = playerTwoScore.ToString();
     }
 }

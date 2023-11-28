@@ -4,6 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/SinglePlayerVolleyBall.unity
+    guid: 83ebeb5436dd59943a34a030772d1c4b
+  - enabled: 1
+    path: Assets/Scenes/MultiPlayerVolleyBall.unity
+    guid: 625715f80a1a18e45a30f9c25ebe8ce2
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ab441e66b41b1744c8e0dc4cc44102f1, type: 2}

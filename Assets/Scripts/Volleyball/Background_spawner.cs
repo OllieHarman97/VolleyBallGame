@@ -19,7 +19,7 @@ public class Background_spawner : MonoBehaviour
 
     private Vector3 nextPos;
 
-    public float shipOffset = 10.0f;
+    public float shipOffset = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
