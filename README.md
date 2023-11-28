@@ -1,8 +1,6 @@
-# Fall-2021-Minigames
-Hey everyone! Welcome to our Fall 2021 project!
+# Volleyball Game
+Hey there! Here is the project that I led the creation of in my university's Game Development Club. The signs that it is a first attempt at a video game is definitely obvious and the project management deadlines surrounding Midterms is definitely obvious, but it was a fun little project to make so I hope you enjoy playing it!
 
-To get started, you'll want to clone the master branch, but all work afterwards should be done in a separate branch for each minigame. We generally won't be merging branches until a minigame is functional, just to keep things clean. As a matter of Git compatibility, try not to edit the main menu scene unless you're actively working on it (so basically if you're making a minigame, don't touch the menu, because someone else will probably do that for you). Finally, in order to complete a pull request to master, you'll notice that you need someone to review it for you (assuming I set Github up correctly).
+## How to Play
 
-Looking forward to working with you all!
-  
-  -Your 2021-2022 EBoard
+You will have to play the game directly within the Unity Engine at the moment and there is definitely a lot of bugs (Itch.io link incoming) but hopefully it is all good for now!
